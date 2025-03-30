@@ -15,6 +15,12 @@
     letter-spacing: 0.5px;
 }
 
+.nav-logo img {
+    width: 100px;
+    height: auto;
+    border-radius: 30%;
+}
+
 .nav-menu {
     display: flex;
     gap: 2rem;
@@ -34,4 +40,13 @@
 .nav-menu-item:hover {
     color: #3498db;
     transition: all 0.3s ease;
+}
+
+.nav-menu-item a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-menu-item a:hover {
+    color: #3498db;
 }

@@ -1,17 +1,50 @@
 import './NavBar.css'
 import CartWidget from '../CartWidget/CartWidget'
+import logo from '../../assets/logo.jpeg'
+import { Link } from 'react-router-dom'
 function NavBar() {
     return (
         <nav className="nav">
             <a href="/" className="nav-logo">
-                TiendaReact
+                <img src={logo} alt="logo" />
             </a>
             
             <ul className="nav-menu">
-                <li><a className="nav-menu-item" href="/productos">Productos</a></li>
-                <li><a className="nav-menu-item" href="/categorias">Categorías</a></li>
-                <li><a className="nav-menu-item" href="/ofertas">Ofertas</a></li>
-                <li><a className="nav-menu-item" href="/contacto">Contacto</a></li>
+                <li className="nav-menu-item">
+                    <Link to="/">
+                        Inicio
+                    </Link>
+                </li>
+                <li className="nav-menu-item">
+                    <Link to="/productos/funkos">
+                        Funkos
+                    </Link>
+                </li>
+                <li className="nav-menu-item">
+                    <Link to="/productos/tazas">
+                        Tazas
+                    </Link>
+                </li>
+                <li className="nav-menu-item">
+                    <Link to="/productos/remeras">
+                        Remeras
+                    </Link>
+                </li>
+                <li className="nav-menu-item">
+                    <Link to="/productos/friends">
+                        Friends
+                    </Link>
+                </li>
+                <li className="nav-menu-item">
+                    <Link to="/productos/tbbt">
+                        TBBT
+                    </Link>
+                </li>
+                <li className="nav-menu-item">
+                    <Link to="/contacto">
+                        Contacto
+                    </Link>
+                </li>
             </ul>
 
             <CartWidget />

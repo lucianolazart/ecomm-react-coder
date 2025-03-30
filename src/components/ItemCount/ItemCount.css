@@ -1,0 +1,31 @@
+.item-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.item-count-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+.item-count-span {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.item-count-button:hover {
+    background-color: #333;
+}
+
+.item-count-button:active {
+    background-color: #666;
+}
+
+.item-count-button:disabled {
+    background-color: #ccc;
+}
