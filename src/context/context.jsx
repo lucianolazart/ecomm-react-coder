@@ -29,10 +29,19 @@ export const ContextProvider = (props) => {
     } else {
       setCarrito([...carrito, nuevoProducto]);
     }
-  }
+  };
+
+  function eliminarDelCarrito(id) {
+    const nuevoCarrito = carrito.filter((x) => x.id !== id);
+    setCarrito(nuevoCarrito);
+  };
+
+  function vaciarCarrito() {
+    setCarrito([]);
+  };
 
   return (
-    <AppContext.Provider value={{ carrito, agregarAlCarrito }}>
+    <AppContext.Provider value={{ carrito, agregarAlCarrito, eliminarDelCarrito, vaciarCarrito }}>
       {props.children}
     </AppContext.Provider>
   );

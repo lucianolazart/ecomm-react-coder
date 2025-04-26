@@ -6,6 +6,9 @@ import ItemDetail from "./components/ItemDetail/ItemDetail";
 import { ContextProvider } from "./context/context";
 import Cart from "./components/Cart/Cart";
 import Contact from "./components/Contact/Contact";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -22,6 +25,8 @@ function App() {
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
         </div>
+        <Footer />
+        <ToastContainer />
       </BrowserRouter>
     </ContextProvider>
   );

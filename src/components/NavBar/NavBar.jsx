@@ -39,6 +39,12 @@ function NavBar() {
                         <li>
                             <Link to="/productos/tbbt">TBBT</Link>
                         </li>
+                        <li>
+                            <Link to="/productos/breakingbad">Breaking Bad</Link>
+                        </li>
+                        <li>
+                            <Link to="/productos/simpsons">Los Simpsons</Link>
+                        </li>
                     </ul>
                 </li>
 

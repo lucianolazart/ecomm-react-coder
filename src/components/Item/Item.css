@@ -1,23 +1,36 @@
 .item-container {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 5px;
+    align-items: stretch;
+    justify-content: center;
+    gap: 20px;
     flex-wrap: wrap;
-    padding: 10px;
-    max-width: 100%;
+    padding: 20px;
 }
 
 .item {
     border: 1px solid #ddd;
-    padding: 15px;
+    padding: 15px 15px 20px 15px;
     border-radius: 15px;
     width: 240px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 400px;
+    display: flex;
+    flex-direction: column;
+    height: 420px;
+    margin-bottom: 20px;
+}
+
+.item-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.item-content a {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .item:hover {
@@ -32,30 +45,25 @@
     border-radius: 10px;
 }
 
-.item h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 10px 0;
-    color: #333;
-}
-
-.item p {
-    font-size: 1rem;
-    margin: 10px 0;
-    color: #666;
-}
-
 .item-nombre {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
     margin: 10px 0;
     color: #333;
+    min-height: 2.4em;
+    line-height: 1.2;
 }
 
 .item-descripcion {
     font-size: 1rem;
     margin: 10px 0;
     color: #666;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 2.4em;
+    line-height: 1.2;
 }
 
 .item-precio {
@@ -71,18 +79,18 @@ a {
 }
 
 .agregar-carrito-btn {
-  background-color: #000000;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-  width: 100%;
+    background-color: #000000;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 15px;
 }
 
 .agregar-carrito-btn:hover {
-  background-color: #333333;
+    background-color: #333333;
 }

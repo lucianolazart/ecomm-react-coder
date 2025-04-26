@@ -3,17 +3,23 @@ import './Cart.css';
 import { useAppContext } from '../../context/context';
 import { FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { db } from '../../firebase';
+import { collection, addDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Cart() {
-    const { carrito, eliminarItem } = useAppContext();
-    const [showDialog, setShowDialog] = useState(false);
-    const [showConfirmation, setShowConfirmation] = useState(false);
+    const { carrito, eliminarDelCarrito, vaciarCarrito } = useAppContext();
+    const [mostrarPopUp, setMostrarPopUp] = useState(false);
+    const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
     const [formData, setFormData] = useState({
         nombre: '',
         direccion: '',
         correo: ''
     });
-    const [errors, setErrors] = useState({});
+    const [errores, setErrores] = useState({});
+
+    const ordenesCollection = collection(db, 'ordenes');
 
     const calcularTotal = () => {
         return carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0);
@@ -25,42 +31,60 @@ function Cart() {
             ...prev,
             [name]: value
         }));
-        if (errors[name]) {
-            setErrors(prev => ({
+        if (errores[name]) {
+            setErrores(prev => ({
                 ...prev,
                 [name]: ''
             }));
         }
     };
 
-    const validateForm = () => {
-        const newErrors = {};
-        if (!formData.nombre.trim()) newErrors.nombre = 'El nombre es obligatorio';
-        if (!formData.direccion.trim()) newErrors.direccion = 'La dirección es obligatoria';
+    const validarFormulario = () => {
+        const newErrores = {};
+        if (!formData.nombre.trim()) newErrores.nombre = 'El nombre es obligatorio';
+        if (!formData.direccion.trim()) newErrores.direccion = 'La dirección es obligatoria';
         if (!formData.correo.trim()) {
-            newErrors.correo = 'El correo es obligatorio';
+            newErrores.correo = 'El correo es obligatorio';
         } else if (!/\S+@\S+\.\S+/.test(formData.correo)) {
-            newErrors.correo = 'Ingrese un correo válido';
+            newErrores.correo = 'Ingrese un correo válido';
         }
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        setErrores(newErrores);
+        return Object.keys(newErrores).length === 0;
     };
 
     const handleFinalizarPedido = () => {
-        if (validateForm()) {
-            setShowConfirmation(true);
+        if (validarFormulario()) {
+            setMostrarConfirmacion(true);
         }
     };
 
     const handleConfirmarPedido = () => {
-        console.log('Pedido confirmado:', { ...formData, items: carrito, total: calcularTotal() });
-        setShowDialog(false);
-        setShowConfirmation(false);
+        addDoc(ordenesCollection, {
+            nombre: formData.nombre,
+            direccion: formData.direccion,
+            correo: formData.correo,
+            items: carrito,
+            total: calcularTotal()
+        }).then((doc) => {
+            toast.success(`¡Pedido confirmado con éxito! 🚀. Código de seguimiento: ${doc.id}`, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+
+        setMostrarPopUp(false);
+        setMostrarConfirmacion(false);
         setFormData({
             nombre: '',
             direccion: '',
             correo: ''
         });
+        vaciarCarrito();
+    });
     };
 
     if (carrito.length === 0) {
@@ -96,7 +120,7 @@ function Cart() {
                         <span className="cart-item-quantity">Cantidad: {item.cantidad}</span>
                         <button 
                             className="delete-button"
-                            onClick={() => eliminarItem(item.id)}
+                            onClick={() => eliminarDelCarrito(item.id)}
                             title="Eliminar producto"
                         >
                             <FaTrash />
@@ -114,14 +138,14 @@ function Cart() {
                     </Link>
                     <button 
                         className="finalizar-pedido-btn"
-                        onClick={() => setShowDialog(true)}
+                        onClick={() => setMostrarPopUp(true)}
                     >
                         Finalizar Pedido
                     </button>
                 </div>
             </div>
 
-            {showDialog && (
+            {mostrarPopUp && (
                 <div className="dialog-overlay">
                     <div className="dialog">
                         <h2>Completar Datos</h2>
@@ -133,7 +157,7 @@ function Cart() {
                                 value={formData.nombre}
                                 onChange={handleInputChange}
                             />
-                            {errors.nombre && <p className="error-message">{errors.nombre}</p>}
+                            {errores.nombre && <p className="error-message">{errores.nombre}</p>}
                         </div>
                         <div className="form-group">
                             <label>Dirección:</label>
@@ -143,7 +167,7 @@ function Cart() {
                                 value={formData.direccion}
                                 onChange={handleInputChange}
                             />
-                            {errors.direccion && <p className="error-message">{errors.direccion}</p>}
+                            {errores.direccion && <p className="error-message">{errores.direccion}</p>}
                         </div>
                         <div className="form-group">
                             <label>Correo:</label>
@@ -153,12 +177,12 @@ function Cart() {
                                 value={formData.correo}
                                 onChange={handleInputChange}
                             />
-                            {errors.correo && <p className="error-message">{errors.correo}</p>}
+                            {errores.correo && <p className="error-message">{errores.correo}</p>}
                         </div>
                         <div className="dialog-buttons">
                             <button 
                                 className="dialog-btn cancel-btn"
-                                onClick={() => setShowDialog(false)}
+                                onClick={() => setMostrarPopUp(false)}
                             >
                                 Cancelar
                             </button>
@@ -173,7 +197,7 @@ function Cart() {
                 </div>
             )}
 
-            {showConfirmation && (
+            {mostrarConfirmacion && (
                 <div className="dialog-overlay">
                     <div className="confirmation-dialog">
                         <h2>¿Desea confirmar el pedido?</h2>
@@ -181,7 +205,7 @@ function Cart() {
                         <div className="dialog-buttons">
                             <button 
                                 className="dialog-btn cancel-btn"
-                                onClick={() => setShowConfirmation(false)}
+                                onClick={() => setMostrarConfirmacion(false)}
                             >
                                 No
                             </button>

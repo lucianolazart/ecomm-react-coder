@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../../context/context";
 import { db } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ItemDetail() {
   const params = useParams();
@@ -38,6 +40,15 @@ function ItemDetail() {
   const handleAgregarAlCarrito = () => {
     if (cantidad > 0) {
       agregarAlCarrito(item, cantidad);
+      toast.success('¡Producto agregado correctamente! 👾', {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -54,7 +65,7 @@ function ItemDetail() {
         <ItemCount stock={item.stock} onCountChange={setCantidad} />
 
         <button 
-          className="btn-volver" 
+          className="btn-agregar" 
           onClick={handleAgregarAlCarrito}
           disabled={cantidad === 0}
         >

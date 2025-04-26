@@ -108,7 +108,6 @@ function Contact() {
                 <button 
                     type="submit" 
                     className="submit-btn"
-                    disabled={Object.keys(errors).length > 0}
                 >
                     Enviar mensaje
                 </button>
