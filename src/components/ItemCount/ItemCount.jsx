@@ -1,19 +1,23 @@
 import { useState } from 'react';
 import './ItemCount.css'
 
-function ItemCount({stock}) {
+function ItemCount({stock, onCountChange}) {
 
     const [count, setCount] = useState(0);
 
     const handleIncrement = () => {
         if (count < stock) {
-            setCount(count + 1);
+            const newCount = count + 1;
+            setCount(newCount);
+            onCountChange(newCount);
         }
     }
 
     const handleDecrement = () => {
         if (count > 0) {
-            setCount(count - 1);
+            const newCount = count - 1;
+            setCount(newCount);
+            onCountChange(newCount);
         }
     }
     

@@ -5,7 +5,7 @@ export const productos = [
         tipo: "funkos",
         categoria: "tbbt",
         precio: 4999,
-        stock: 15,
+        stock: 1500,
         descripcion: "Sheldon Cooper de The Big Bang Theory",
         imagen: "https://http2.mlstatic.com/D_Q_NP_791560-MLM31990389050_082019-O.webp"
     },
@@ -15,7 +15,7 @@ export const productos = [
         tipo: "funkos",
         categoria: "friends",
         precio: 5499,
-        stock: 8,
+        stock: 800,
         descripcion: "Rachel Green de Friends",
         imagen: "https://rec-line.com/img/productos/467x467/889698801898.jpeg"
     },
@@ -25,7 +25,7 @@ export const productos = [
         tipo: "tazas",
         categoria: "friends",
         precio: 2499,
-        stock: 25,
+        stock: 2500,
         descripcion: "Taza Friends",
         imagen: "https://acdn-us.mitiendanube.com/stores/806/999/products/tazas-friends-fotocaja-tienda-geek-31-dd862e26a1bc6caa4316039418611776-1024-1024.jpg"
     },
@@ -35,7 +35,7 @@ export const productos = [
         tipo: "tazas",
         categoria: "tbbt",
         precio: 2299,
-        stock: 20,
+        stock: 2000,
         descripcion: "Taza The Big Bang Theory",
         imagen: "https://http2.mlstatic.com/D_NQ_NP_683459-MLA47493214749_092021-O.webp"
     },
@@ -45,7 +45,7 @@ export const productos = [
         tipo: "remeras",
         categoria: "tbbt",
         precio: 3999,
-        stock: 12,
+        stock: 1200,
         descripcion: "Remera The Big Bang Theory",
         imagen: "https://acdn.mitiendanube.com/stores/944/335/products/the-big-bang-theory-21-5196bedde6e06ba04a15500164116058-640-0.jpg"
     },
@@ -55,7 +55,7 @@ export const productos = [
         tipo: "remeras",
         categoria: "friends",
         precio: 3799,
-        stock: 18,
+        stock: 1800,
         descripcion: "Remera Friends",
         imagen: "https://artenis.com.ar/wp-content/uploads/2021/11/Remera-How-You-Doin-Friends.jpg"
     }

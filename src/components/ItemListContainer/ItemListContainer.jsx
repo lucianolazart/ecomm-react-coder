@@ -4,7 +4,8 @@ import { fetchData } from "../../fetchData";
 import Item from "../Item/Item";
 import { PacmanLoader } from "react-spinners";
 import "./ItemListContainer.css";
-
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 function ItemListContainer() {
 
     const [loading, setLoading] = useState(true);
@@ -12,11 +13,19 @@ function ItemListContainer() {
 
     const { tipo } = useParams();
 
+    const itemsCollection = collection(db, "productos");
+
     useEffect(() => {
+
         if (!items){
-            fetchData()
-            .then(data => {
-                setItems(data);
+            getDocs(itemsCollection).then(snapshot => {
+                const items = snapshot.docs.map(doc => {
+                    return {
+                        id: doc.id,
+                        ...doc.data()
+                    }
+                })
+                setItems(items);
                 setTimeout(() => {
                     setLoading(false);
                 }, 500);
